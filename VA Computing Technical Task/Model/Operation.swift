@@ -10,11 +10,11 @@ import Foundation
 class Question {
     var id: Int
     var numbers: [Int]
-    var result: Int?
+    var result: Double?
     var date: Date
-    var op: (Int,Int)->Int
+    var op: (Double,Double)->Double
     
-    init(id: Int, numbers: [Int], date: Date, op: @escaping (Int,Int)->Int) {
+    init(id: Int, numbers: [Int], date: Date, op: @escaping (Double,Double)->Double) {
         self.id = id
         self.numbers = numbers
         self.date = date

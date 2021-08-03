@@ -42,12 +42,13 @@ class OperationsPresenter: OperationsPresenterProtocol, OperationQuestionsProtoc
     ///   - numbers: the array of numbers enterd by the user
     ///   - mathOp: the operation to be excuted
     /// - Returns: the result of the function as Integer
-    func excuteOperation(numbers: [Int], mathOp: (Int, Int) -> Int) -> Int {
-        var result = numbers[0]
+    func excuteOperation(numbers: [Int], mathOp: (Double, Double) -> Double) -> Double {
+        var result: Double? = Double(numbers[0])
         for i in 1...numbers.count - 1 {
-            result = mathOp(result, numbers[i])
+            result = mathOp(result ?? 0.0, Double(numbers[i]))
         }
-        return result
+        guard let resultNumber = result else { return 0}
+        return resultNumber
     }
     
     func configure(cell: OperationTableViewCell, indexPath: IndexPath) {
@@ -71,7 +72,7 @@ class OperationsPresenter: OperationsPresenterProtocol, OperationQuestionsProtoc
     }
     
     func didFinishWaitTime(operation: Question) {
-        operation.result = self.excuteOperation(numbers: operation.numbers, mathOp: operation.op)
+        operation.result = excuteOperation(numbers: operation.numbers, mathOp: operation.op)
         self.pendingOperations.removeAll{$0.id == operation.id}
         self.finishedOperations.append(operation)
         DispatchQueue.main.async {

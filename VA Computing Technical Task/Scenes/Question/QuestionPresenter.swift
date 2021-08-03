@@ -13,7 +13,7 @@ class QuestionPresenter: QuestionPresenterProtocol {
     private let delegate: OperationQuestionsProtocol?
     private var question: Operation?
     var numbersArray: [Int] = []
-    var mathematicalOperation: (Int,Int)->Int = (+)
+    var mathematicalOperation: (Double,Double)->Double = (+)
     
     init(view: QuestionViewProtocol, router: QuestionRouterProtocol, delegate: OperationQuestionsProtocol) {
         self.view = view
@@ -40,6 +40,7 @@ class QuestionPresenter: QuestionPresenterProtocol {
             mathematicalOperation = (*)
         case 3:
             mathematicalOperation = (/)
+           
         default:
             print()
         }
